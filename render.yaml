@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: texas-gto-coach
+    runtime: node
+    plan: free
+    buildCommand: "true"
+    startCommand: "node server.js"
+    healthCheckPath: /api/config
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLOUD_DEPLOY
+        value: "true"
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: OPENAI_API_KEY
+        sync: false

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#17352e" />
+    <title>德州扑克 GTO 教练</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./coach-builder.css" />
+  </head>
+  <body>
+    <header class="mobile-hero">
+      <div>
+        <p class="eyebrow">德州扑克学习工具</p>
+        <h1>GTO 专家教练</h1>
+        <p>选择牌局信息，直接得到翻前和翻后复盘建议。</p>
+      </div>
+      <div class="hero-actions">
+        <button class="primary" id="jumpAnalyzeButton" type="button">开始分析一手牌</button>
+        <button class="secondary" id="jumpConfigButton" type="button">查看手机访问</button>
+      </div>
+    </header>
+
+    <main class="app-layout">
+      <section class="builder" id="handBuilder">
+        <section class="panel compact-panel">
+          <div class="section-title">
+            <span>1</span>
+            <div>
+              <h2>基本牌局</h2>
+              <p>手机上优先点选，少打字。</p>
+            </div>
+          </div>
+
+          <div class="field-stack">
+            <label>
+              <span>游戏类型</span>
+              <div class="choice-row" data-group="gameType">
+                <button class="choice active" data-value="现金局" type="button">现金局</button>
+                <button class="choice" data-value="锦标赛" type="button">锦标赛</button>
+                <button class="choice" data-value="单桌赛" type="button">单桌赛</button>
+              </div>
+            </label>
+
+            <label>
+              <span>人数</span>
+              <div class="choice-row small-grid" data-group="tableSize">
+                <button class="choice" data-value="2人" type="button">2人</button>
+                <button class="choice" data-value="3人" type="button">3人</button>
+                <button class="choice" data-value="4人" type="button">4人</button>
+                <button class="choice" data-value="5人" type="button">5人</button>
+                <button class="choice active" data-value="6人" type="button">6人</button>
+                <button class="choice" data-value="7人" type="button">7人</button>
+                <button class="choice" data-value="8人" type="button">8人</button>
+                <button class="choice" data-value="9人" type="button">9人</button>
+              </div>
+            </label>
+
+            <label>
+              <span>盲注</span>
+              <div class="preset-row">
+                <button class="preset-chip active" data-blind="1/2" type="button">1/2</button>
+                <button class="preset-chip" data-blind="2/5" type="button">2/5</button>
+                <button class="preset-chip" data-blind="5/10" type="button">5/10</button>
+                <button class="preset-chip" data-blind="100/200" type="button">100/200</button>
+                <button class="preset-chip" data-blind="500/1000" type="button">500/1000</button>
+                <button class="preset-chip" data-blind="1000/2000" type="button">1000/2000</button>
+              </div>
+              <input id="blindsInput" value="1/2" />
+            </label>
+
+            <label>
+              <span>有效筹码</span>
+              <div class="preset-row">
+                <button class="preset-chip" data-stack="10" type="button">10</button>
+                <button class="preset-chip" data-stack="15" type="button">15</button>
+                <button class="preset-chip" data-stack="20" type="button">20</button>
+                <button class="preset-chip" data-stack="25" type="button">25</button>
+                <button class="preset-chip" data-stack="30" type="button">30</button>
+                <button class="preset-chip" data-stack="40" type="button">40</button>
+                <button class="preset-chip" data-stack="60" type="button">60</button>
+                <button class="preset-chip active" data-stack="100" type="button">100</button>
+              </div>
+              <div class="stack-row">
+                <input id="stackInput" type="range" min="5" max="250" value="100" />
+                <output id="stackOutput">100个大盲</output>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <span>2</span>
+            <div>
+              <h2>位置和对手</h2>
+              <p>我的位置单选，对手位置可多选。</p>
+            </div>
+          </div>
+
+          <div class="field-stack">
+            <label>
+              <span>我的位置</span>
+              <div class="choice-row position-row" data-group="heroPos">
+                <button class="choice" data-value="枪口位" type="button">枪口位</button>
+                <button class="choice" data-value="枪口后一位" type="button">枪口后一位</button>
+                <button class="choice" data-value="中间位" type="button">中间位</button>
+                <button class="choice" data-value="劫持位" type="button">劫持位</button>
+                <button class="choice" data-value="关煞位" type="button">关煞位</button>
+                <button class="choice active" data-value="按钮位" type="button">按钮位</button>
+                <button class="choice" data-value="小盲位" type="button">小盲位</button>
+                <button class="choice" data-value="大盲位" type="button">大盲位</button>
+              </div>
+            </label>
+
+            <label>
+              <span>对手位置</span>
+              <div class="choice-row position-row multi-row" data-multi="villainPositions">
+                <button class="choice" data-value="枪口位" type="button">枪口位</button>
+                <button class="choice" data-value="枪口后一位" type="button">枪口后一位</button>
+                <button class="choice" data-value="中间位" type="button">中间位</button>
+                <button class="choice" data-value="劫持位" type="button">劫持位</button>
+                <button class="choice" data-value="关煞位" type="button">关煞位</button>
+                <button class="choice" data-value="按钮位" type="button">按钮位</button>
+                <button class="choice" data-value="小盲位" type="button">小盲位</button>
+                <button class="choice active" data-value="大盲位" type="button">大盲位</button>
+              </div>
+            </label>
+
+            <label>
+              <span>对手信息</span>
+              <div class="choice-row multi-row" data-multi="opponentTypes">
+                <button class="choice active" data-value="未知" type="button">未知</button>
+                <button class="choice" data-value="偏紧" type="button">偏紧</button>
+                <button class="choice" data-value="偏松" type="button">偏松</button>
+                <button class="choice" data-value="激进" type="button">激进</button>
+                <button class="choice" data-value="被动" type="button">被动</button>
+                <button class="choice" data-value="很爱跟注" type="button">很爱跟注</button>
+                <button class="choice" data-value="很爱弃牌" type="button">很爱弃牌</button>
+                <button class="choice" data-value="很爱过牌加注" type="button">爱过牌加注</button>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <section class="panel" id="cardSection">
+          <div class="section-title">
+            <span>3</span>
+            <div>
+              <h2>手牌和公共牌</h2>
+              <p id="cardHelperText">先选择我的两张手牌。翻前牌局可以不填公共牌。</p>
+            </div>
+          </div>
+
+          <div class="card-targets">
+            <button class="card-target active" data-target="heroCards" type="button"><span>我的手牌</span><strong id="heroCardsPreview">未选择</strong></button>
+            <button class="card-target" data-target="flopCards" type="button"><span>翻牌</span><strong id="flopCardsPreview">未选择</strong></button>
+            <button class="card-target" data-target="turnCard" type="button"><span>转牌</span><strong id="turnCardPreview">未选择</strong></button>
+            <button class="card-target" data-target="riverCard" type="button"><span>河牌</span><strong id="riverCardPreview">未选择</strong></button>
+          </div>
+
+          <div class="direct-inputs">
+            <input id="heroCardsInput" data-card-input="heroCards" placeholder="手牌：9♠ 8♥" />
+            <input id="flopCardsInput" data-card-input="flopCards" placeholder="翻牌：J♠ 10♥ 8♣" />
+            <input id="turnCardInput" data-card-input="turnCard" placeholder="转牌：4♦" />
+            <input id="riverCardInput" data-card-input="riverCard" placeholder="河牌：A♥" />
+          </div>
+
+          <div class="card-grid" id="cardGrid" aria-label="扑克牌选择"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <span>4</span>
+            <div>
+              <h2>行动线和问题</h2>
+              <p>不确定就写“该如何行动”。</p>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <button class="quick-action" data-street="preflop" data-text="该如何行动" type="button">翻前不知道怎么打</button>
+            <button class="quick-action" data-street="preflop" data-text="我面对对手加注，该如何行动" type="button">面对加注</button>
+            <button class="quick-action" data-street="flop" data-text="对手过牌，我下注 1/3 底池，对手跟注" type="button">翻牌小注被跟</button>
+            <button class="quick-action" data-street="turn" data-text="对手过牌，我？" type="button">转牌面对过牌</button>
+            <button class="quick-action" data-street="river" data-text="对手全下，我？" type="button">河牌面对全下</button>
+          </div>
+
+          <div class="street-inputs">
+            <label><span>翻前行动</span><textarea id="preflopInput">该如何行动</textarea></label>
+            <label><span>翻牌行动</span><textarea id="flopInput"></textarea></label>
+            <label><span>转牌行动</span><textarea id="turnInput"></textarea></label>
+            <label><span>河牌行动</span><textarea id="riverInput"></textarea></label>
+          </div>
+
+          <label>
+            <span>我想问什么</span>
+            <div class="choice-row" data-group="questionType">
+              <button class="choice active" data-value="请用简洁教练风格告诉我这手牌应该怎么打。" type="button">简洁分析</button>
+              <button class="choice" data-value="请重点告诉我这手牌的牌力定位和是否应该继续打价值。" type="button">牌力定位</button>
+              <button class="choice" data-value="请重点找出我这手牌最大的错误和改法。" type="button">找错误</button>
+              <button class="choice" data-value="请同时给默认打法和针对这个对手的调整。" type="button">默认+针对</button>
+              <button class="choice" data-value="这手牌涉及跟注、全下或大底池，请补充必要数学计算。" type="button">需要数学</button>
+            </div>
+          </label>
+        </section>
+      </section>
+
+      <aside class="coach-panel">
+        <section class="panel result-panel" id="resultPanel">
+          <div class="result-head">
+            <div>
+              <h2>教练复盘</h2>
+              <p id="analysisStatus">选择手牌后，点下面按钮开始。</p>
+            </div>
+            <div class="result-buttons">
+              <button class="secondary" id="analyzeButton" type="button">快速分析</button>
+              <button class="primary" id="aiAnalyzeButton" type="button">智能深度分析</button>
+            </div>
+          </div>
+          <div class="analysis-result" id="analysisResult">
+            <div class="empty-note">这里会显示教练结论。手机上先用“快速分析”，智能深度分析需要接口额度可用。</div>
+          </div>
+        </section>
+
+        <section class="panel setup-panel" id="accessPanel">
+          <div class="section-title slim">
+            <span>⚙</span>
+            <div>
+              <h2>手机长期使用</h2>
+              <p>当前公网链接是临时的；长期固定地址需要绑定云服务。</p>
+            </div>
+          </div>
+          <div class="status-grid">
+            <div><span>智能分析</span><strong id="apiSetupBadge">检测中</strong></div>
+            <div><span>本机地址</span><strong id="phoneAccessValue">检测中</strong></div>
+            <div><span>公网地址</span><strong id="publicAccessValue">当前页面地址</strong></div>
+          </div>
+          <div class="setup-fields">
+            <input id="apiKeyInput" type="password" autocomplete="off" spellcheck="false" placeholder="接口密钥，已配置可不填" />
+            <select id="modelInput" aria-label="分析强度">
+              <option value="gpt-4.1-mini">日常学习</option>
+              <option value="gpt-4.1">更细复盘</option>
+              <option value="gpt-5.2">更强分析</option>
+            </select>
+            <button class="secondary" id="saveApiKeyButton" type="button">保存配置</button>
+          </div>
+          <div class="setup-status" id="apiSetupStatus">手机打开后，可以点浏览器分享按钮，添加到主屏幕。</div>
+          <button class="secondary full-button" id="copyPhoneUrlButton" type="button">复制当前手机地址</button>
+        </section>
+
+        <section class="panel prompt-panel">
+          <div class="result-head">
+            <div>
+              <h2>备用牌谱文本</h2>
+              <p>需要时复制到其他聊天窗口。</p>
+            </div>
+            <button class="secondary" id="copyButton" type="button">复制</button>
+          </div>
+          <textarea id="promptOutput" readonly></textarea>
+          <div class="mini-actions">
+            <button class="secondary" id="clearButton" type="button">清空牌面</button>
+            <button class="secondary" id="exampleButton" type="button">填入示例</button>
+          </div>
+          <div class="copy-status" id="copyStatus">内容会随着选择自动更新。</div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="./coach-builder.js" defer></script>
+  </body>
+</html>
