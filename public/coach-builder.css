@@ -102,6 +102,7 @@ h1 {
   display: grid;
   align-content: start;
   gap: 14px;
+  min-width: 0;
 }
 
 .coach-panel {
@@ -115,6 +116,7 @@ h1 {
   background: var(--panel);
   box-shadow: var(--shadow);
   padding: 16px;
+  min-width: 0;
 }
 
 .section-title,
@@ -168,6 +170,7 @@ h2 {
 label {
   display: grid;
   gap: 8px;
+  min-width: 0;
 }
 
 label > span {
@@ -215,6 +218,7 @@ textarea:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  min-width: 0;
 }
 
 .choice,
@@ -387,6 +391,101 @@ output {
 
 .ask-buttons,
 .direct-answer {
+  margin-top: 10px;
+}
+
+.study-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+
+.study-chip {
+  flex: 0 0 auto;
+  min-height: 36px;
+  border-radius: 8px;
+  background: var(--soft);
+  color: var(--ink);
+  padding: 7px 10px;
+  font-size: 13px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.study-chip.active {
+  background: var(--dark);
+  color: #fff;
+}
+
+.study-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdfc;
+  padding: 12px;
+}
+
+.study-card h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.study-tagline {
+  margin: 0;
+  color: var(--green);
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.study-block {
+  display: grid;
+  gap: 6px;
+}
+
+.study-block strong {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.study-block ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.55;
+}
+
+.study-quiz {
+  border-radius: 8px;
+  background: var(--amber-soft);
+  color: #573a0d;
+  padding: 10px;
+  line-height: 1.55;
+}
+
+.study-quiz strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.study-answer {
+  display: none;
+  border-radius: 8px;
+  background: var(--green-soft);
+  color: #0e5c48;
+  padding: 10px;
+  line-height: 1.55;
+}
+
+.study-answer.show {
+  display: block;
+}
+
+.study-actions {
   margin-top: 10px;
 }
 

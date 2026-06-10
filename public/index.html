@@ -18,6 +18,7 @@
       <div class="hero-actions">
         <button class="primary" id="jumpAnalyzeButton" type="button">开始分析一手牌</button>
         <button class="secondary" id="jumpAskButton" type="button">直接问教练</button>
+        <button class="secondary" id="jumpStudyButton" type="button">课程学习</button>
         <button class="secondary" id="jumpConfigButton" type="button">查看手机访问</button>
       </div>
     </header>
@@ -222,6 +223,8 @@
           <div class="quick-questions">
             <button class="quick-question" data-question="AK没中到底要不要继续下注？" type="button">AK没中</button>
             <button class="quick-question" data-question="短码翻前全下和反推应该怎么判断？" type="button">短码全下</button>
+            <button class="quick-question" data-question="20BB左右为什么不能只会全下？" type="button">20BB策略</button>
+            <button class="quick-question" data-question="持续下注时应该先看哪些牌面因素？" type="button">C-bet牌面</button>
             <button class="quick-question" data-question="ICM、泡沫期和风险溢价到底怎么影响打法？" type="button">ICM调整</button>
             <button class="quick-question" data-question="我应该怎么学习翻前范围表，为什么不能死背？" type="button">学范围表</button>
           </div>
@@ -233,6 +236,24 @@
 
           <div class="analysis-result direct-answer" id="coachQuestionAnswer">
             <div class="empty-note">在这里问一句话也可以，比如“AK miss 打不打”。我会先按课程原则给你简洁回答。</div>
+          </div>
+        </section>
+
+        <section class="panel study-panel" id="studyPanel">
+          <div class="section-title slim">
+            <span>学</span>
+            <div>
+              <h2>课程知识库</h2>
+              <p>我把逐字稿提炼成学习卡片，先学框架，再用手牌检验。</p>
+            </div>
+          </div>
+
+          <div class="study-tabs" id="studyLessonNav" aria-label="课程模块"></div>
+          <div class="study-card" id="studyLessonCard"></div>
+          <div class="result-buttons study-actions">
+            <button class="secondary" id="prevLessonButton" type="button">上一课</button>
+            <button class="secondary" id="quizRevealButton" type="button">看自测答案</button>
+            <button class="primary" id="nextLessonButton" type="button">下一课</button>
           </div>
         </section>
 
@@ -257,7 +278,7 @@
             <span>⚙</span>
             <div>
               <h2>手机长期使用</h2>
-              <p>当前公网链接是临时的；长期固定地址需要绑定云服务。</p>
+              <p>固定云端地址可以直接收藏，手机添加到主屏幕。</p>
             </div>
           </div>
           <div class="status-grid">

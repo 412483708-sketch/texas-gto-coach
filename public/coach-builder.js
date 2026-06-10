@@ -34,8 +34,225 @@ const coursePrinciples = [
   "边缘正EV不等于必须打大；要比较跟注、全下、再加注和弃牌的 EV 与风险。",
 ];
 
+const courseLessons = [
+  {
+    title: "短码翻前",
+    tagline: "短码不是20BB就全下，先看有效筹码和行动节点。",
+    keywords: ["短码", "短筹码", "20bb", "15bb", "10bb", "8bb", "5bb", "全下", "aof", "push", "jam", "反推", "跟住全下", "跟注全下"],
+    points: [
+      "默认用有效筹码判断，不用自己的总筹码误判风险。",
+      "真正接近全下或弃牌的区间通常更短，20BB左右仍然有小加注、反推、跟注和弃牌的细分。",
+      "短码看起来简单，但最容易因为跟错全下、反推过宽或过紧而损失大量EV。",
+    ],
+    drill: [
+      "每天单独练5BB、8BB、10BB、15BB、20BB五个深度。",
+      "每次只练一个位置，比如按钮位先手、盲位面对按钮位、面对枪口位open。",
+      "把边界牌记成三类：稳定全下、混合可打、默认弃牌。",
+    ],
+    quiz: "20BB在按钮位拿一手边缘牌，能不能默认直接全下？",
+    answer: "不能。20BB通常还要保留小加注和面对反推的策略，直接全下会浪费位置优势，也让强牌和弱牌更难区分。",
+  },
+  {
+    title: "开池尺寸",
+    tagline: "筹码越短，开池尺寸越小；但现场对手爱跟时可以 exploit 加大价值。",
+    keywords: ["open", "开池", "加注尺寸", "2bb", "2.2bb", "2.5bb", "3bb", "偷盲", "盲注", "尺寸"],
+    points: [
+      "深码常用更大开池，60-100BB附近可用约2.5BB，30-60BB可降到约2.2BB，30BB以下常接近2BB。",
+      "小尺寸让偷盲成本更低，也让你能用更完整的范围进入底池。",
+      "如果桌上玩家非常爱跟注，强价值牌可以适当加大，目的是多拿价值，不是为了显得强硬。",
+    ],
+    drill: [
+      "看每个筹码深度默认开池尺寸。",
+      "练习同一手牌在100BB、40BB、20BB时计划有什么变化。",
+      "复盘时标记：我是为了偷盲、价值，还是随手点了一个尺寸。",
+    ],
+    quiz: "为什么短筹码时不建议仍然开到3BB？",
+    answer: "因为你投入比例太大，偷盲成本变高，面对反推也更难舒服弃牌。短码小尺寸更利于保持范围和风险控制。",
+  },
+  {
+    title: "中码翻前",
+    tagline: "20-60BB的差距来自3bet、4bet、反推和跟注边界。",
+    keywords: ["中码", "中筹码", "20到60", "40bb", "60bb", "3bet", "3b", "4bet", "4b", "squeeze", "冷跟", "抵抗", "再加注"],
+    points: [
+      "20-60BB不只是翻牌前开池表，重点是面对open、3bet、4bet和squeeze时怎么继续。",
+      "强牌承担价值；A/K类阻断牌常承担部分再加注诈唬；小对子和同花连接牌更多看赔率、位置和实现权益。",
+      "每个再加注动作都要提前想好：如果对手全下，我这手牌是跟、弃，还是本来就该直接打光。",
+    ],
+    drill: [
+      "分别练有位置3bet和没位置3bet。",
+      "复盘所有被3bet的牌，写下继续理由。",
+      "专门练小对子、Axs、Kxs这类边界牌。",
+    ],
+    quiz: "为什么小对子不总适合拿去3bet/fold？",
+    answer: "小对子有一定摊牌权益和暗三价值，3bet后被全下再弃牌，会浪费本来可以实现的权益；它不是天然的阻断诈唬牌。",
+  },
+  {
+    title: "翻后框架",
+    tagline: "翻后先看范围对范围，再看自己的单手牌。",
+    keywords: ["翻后", "范围", "权益", "坚果", "位置", "牌面结构", "湿润", "干燥", "动态", "静态", "范围优势"],
+    points: [
+      "先判断谁有范围优势、谁有坚果优势、谁有位置，最后再决定具体手牌打不打。",
+      "高张干燥牌面通常更利于翻前进攻方；低张连牌和多听牌牌面常给防守方更多命中。",
+      "单手牌要归类：价值、摊牌价值、半诈唬、空气牌。不同类别承担不同任务。",
+    ],
+    drill: [
+      "每看一张翻牌，先说出它更像进攻方牌面还是防守方牌面。",
+      "把自己的手牌标注成价值、摊牌价值、听牌或垃圾。",
+      "同一个牌面练小注、大注、过牌三个选项的理由。",
+    ],
+    quiz: "AK在J-T-8这种低中连张牌面没成牌，为什么不能自动持续下注？",
+    answer: "这类牌面更容易击中防守方跟注范围，AK虽然有高张和部分后门，但连续开火的基础不足，常需要更多过牌和控池。",
+  },
+  {
+    title: "持续下注",
+    tagline: "C-bet不是按钮反应，先看牌面、范围和后续转牌计划。",
+    keywords: ["cbet", "c-bet", "持续下注", "下注", "过牌", "小注", "大注", "ak没中", "miss", "没中", "不中"],
+    points: [
+      "A/K/Q高、干燥、你有范围优势的牌面，可以更高频小注。",
+      "低张连牌、两同花、顺听多、对大盲防守范围友好的牌面，要降低频率。",
+      "下注前要知道转牌计划：哪些转牌继续打，哪些转牌放弃，哪些转牌转成摊牌价值。",
+    ],
+    drill: [
+      "用同一手AK分别放到A72、K83、T98、876两同花四类牌面比较。",
+      "每次C-bet前说一句：我下注是价值、保护、半诈唬，还是偷弃牌率。",
+      "记录被跟注后的转牌计划，减少一枪后迷路。",
+    ],
+    quiz: "AK没中但有后门同花和后门顺子，和完全没后门有什么区别？",
+    answer: "有后门时更适合做低频小注或继续代表强范围；完全没后门时实现权益差，过牌比例更高。",
+  },
+  {
+    title: "复杂翻后",
+    tagline: "过牌加注、缠打、延迟下注，核心都是权益实现和范围压力。",
+    keywords: ["过牌加注", "check raise", "check-raise", "缠打", "延迟", "delayed", "没位置", "不利位置", "3bet池", "非大盲"],
+    points: [
+      "过牌加注常出现在没位置一方，用强价值和强听牌给对手范围施压。",
+      "缠打不是乱跟，是用有转牌改善空间或可施压机会的牌继续。",
+      "没位置时不要只看自己有牌没牌，还要看后续街能不能实现权益。",
+    ],
+    drill: [
+      "挑10手没位置防守牌，标注哪些能过牌加注。",
+      "复盘每个 flop 跟注，问自己转牌能继续的牌有多少。",
+      "练习延迟C-bet：翻牌过牌后，哪些转牌适合重新下注。",
+    ],
+    quiz: "为什么没位置的弱后门牌不能随便缠打？",
+    answer: "因为它后续实现权益很差，容易在转牌和河牌被迫弃牌，或者把小错误滚成大底池。",
+  },
+  {
+    title: "ICM基础",
+    tagline: "锦标赛后期争的不是筹码数量，而是奖金权益。",
+    keywords: ["icm", "筹码价值", "奖金", "泡沫", "决赛桌", "ft", "风险溢价", "bubble factor", "chipEV", "icm ev"],
+    points: [
+      "现金局筹码接近线性，锦标赛筹码价值不是线性的。",
+      "风险溢价越高，跟注全下越要收紧；尤其是会被覆盖时。",
+      "ICM不是让你永远苟，而是让你知道什么时候该避险，什么时候该利用别人避险。",
+    ],
+    drill: [
+      "复盘泡沫期所有全下和跟注全下。",
+      "标记自己是大码、中码还是短码，以及谁覆盖谁。",
+      "每次大底池前先问：输掉后我的名次权益会不会崩。",
+    ],
+    quiz: "泡沫期中等筹码为什么不能随便跟大码全下？",
+    answer: "因为中等筹码被淘汰的代价非常高，跟注需要额外补偿风险溢价；很多chipEV接近的跟注在ICM下会变成弃牌。",
+  },
+  {
+    title: "ICM应用",
+    tagline: "同一手牌在前期、泡沫、刚进圈和决赛桌，答案可能完全不同。",
+    keywords: ["票赛", "奖励分布", "钱圈", "进圈", "泡沫期", "决赛桌泡沫", "短码", "中码", "大码", "覆盖", "奖池结构"],
+    points: [
+      "ICM强弱取决于阶段、奖励分布、桌上筹码分布、谁覆盖谁。",
+      "大码可以给中码压力，但不能用任何两张乱撞短码价值范围。",
+      "短码不能只等死，要找有弃牌率或价值足够的点；中码要少和覆盖自己的大码打边缘大底池。",
+    ],
+    drill: [
+      "同一手AJo分别放到前期、泡沫、FT泡沫，看策略如何变化。",
+      "练习三种身份：大码施压、中码避险、短码找翻倍点。",
+      "复盘时把chipEV答案和ICM答案分开写。",
+    ],
+    quiz: "为什么大码有压力优势，但仍不能乱跟短码全下？",
+    answer: "施压优势主要来自你先行动时能逼别人弃牌；跟注短码全下时你的弃牌率消失了，只剩摊牌权益和ICM损失。",
+  },
+  {
+    title: "训练方法",
+    tagline: "课程不是看完就会，要把错误点变成每天训练题。",
+    keywords: ["训练", "软件", "复习", "学习", "怎么学", "练习", "错题", "打分", "close decision", "表格", "范围表"],
+    points: [
+      "先练高频场景：短码翻前、盲位防守、面对3bet、持续下注、ICM全下。",
+      "不要只看答案，重点看自己错在哪类边界牌。",
+      "训练目标是稳定形成判断流程，而不是记住某一手牌的单次答案。",
+    ],
+    drill: [
+      "每天选一个主题练20-50手，不要东点西点。",
+      "所有错题只写三句话：我当时怎么想、正确原因、下次触发条件。",
+      "分数稳定后再增加复杂场景，例如非大盲防守、3bet池、ICM决策。",
+    ],
+    quiz: "为什么学习范围表时要先看纯继续、纯弃牌，再看混合边界？",
+    answer: "纯策略帮你建立骨架，混合边界帮你理解原因。先看边界会觉得全是频率，反而学不出稳定判断。",
+  },
+];
+
+let activeStudyIndex = 0;
+let quizAnswerVisible = false;
+
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[char]);
+}
+
+function listHtml(items) {
+  return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+}
+
+function normalizedText(value) {
+  return String(value).toLowerCase().replace(/\s+/g, "");
+}
+
+function matchedCourseLessons(question, limit = 2) {
+  const q = normalizedText(question);
+  if (!q) return [];
+
+  return courseLessons
+    .map((lesson) => {
+      const title = normalizedText(lesson.title);
+      let score = q.includes(title) ? 4 : 0;
+      for (const keyword of lesson.keywords) {
+        if (q.includes(normalizedText(keyword))) score += 2;
+      }
+      for (const point of lesson.points) {
+        for (const token of ["范围", "ICM", "短码", "全下", "下注", "过牌", "训练", "牌面"]) {
+          if (q.includes(normalizedText(token)) && normalizedText(point).includes(normalizedText(token))) score += 0.25;
+        }
+      }
+      return { lesson, score };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((item) => item.lesson);
+}
+
+function courseReferenceText(question) {
+  const lessons = matchedCourseLessons(question, 2);
+  if (!lessons.length) return "";
+  return directAnswerSections([
+    {
+      title: "课程资料命中",
+      body: lessons.map((lesson) => `${lesson.title}：${lesson.tagline}`).join("\n"),
+    },
+  ]);
+}
+
+function appendCourseReference(answer, question) {
+  const reference = courseReferenceText(question);
+  return reference ? `${answer}\n\n${reference}` : answer;
+}
 
 function rankText(rank) {
   return rank === "T" ? "10" : rank;
@@ -329,6 +546,47 @@ function renderQuestionAnswer(text, className = "ai-output") {
   $("#coachQuestionAnswer").replaceChildren(el);
 }
 
+function renderStudyLesson() {
+  const nav = $("#studyLessonNav");
+  const card = $("#studyLessonCard");
+  if (!nav || !card) return;
+
+  nav.innerHTML = courseLessons
+    .map((lesson, index) => (
+      `<button class="study-chip ${index === activeStudyIndex ? "active" : ""}" data-study-index="${index}" type="button">${escapeHtml(lesson.title)}</button>`
+    ))
+    .join("");
+
+  const lesson = courseLessons[activeStudyIndex];
+  card.innerHTML = `
+    <h3>${escapeHtml(lesson.title)}</h3>
+    <p class="study-tagline">${escapeHtml(lesson.tagline)}</p>
+    <div class="study-block">
+      <strong>核心要点</strong>
+      ${listHtml(lesson.points)}
+    </div>
+    <div class="study-block">
+      <strong>怎么练</strong>
+      ${listHtml(lesson.drill)}
+    </div>
+    <div class="study-quiz">
+      <strong>自测题</strong>
+      ${escapeHtml(lesson.quiz)}
+    </div>
+    <div class="study-answer ${quizAnswerVisible ? "show" : ""}">
+      <strong>答案：</strong>${escapeHtml(lesson.answer)}
+    </div>
+  `;
+
+  $$(".study-chip").forEach((button) => button.addEventListener("click", () => {
+    activeStudyIndex = Number(button.dataset.studyIndex);
+    quizAnswerVisible = false;
+    renderStudyLesson();
+  }));
+
+  $("#quizRevealButton").textContent = quizAnswerVisible ? "收起答案" : "看自测答案";
+}
+
 function activeHandSummary() {
   const lines = [
     `游戏：${state.gameType}`,
@@ -346,6 +604,11 @@ function directAnswerSections(sections) {
 }
 
 function directQuestionPrompt(question, localAnswer = "") {
+  const matchedLessons = matchedCourseLessons(question, 3);
+  const courseContext = matchedLessons.length
+    ? matchedLessons.map((lesson) => `【${lesson.title}】${lesson.tagline}\n核心：${lesson.points.join("；")}\n练习：${lesson.drill.join("；")}`).join("\n\n")
+    : "没有命中特定课程模块，按通用GTO教练框架回答。";
+
   return `请你作为德州扑克 GTO 专家教练，回答我的学习问题。
 
 我的问题：
@@ -356,6 +619,9 @@ ${activeHandSummary()}
 
 课程资料整理出的回答原则：
 ${coursePrinciples.map((item) => `- ${item}`).join("\n")}
+
+逐字稿提炼出的相关课程知识：
+${courseContext}
 
 本地教练先给出的参考回答：
 ${localAnswer || "无"}
@@ -452,7 +718,7 @@ function directAnswerQuestion() {
     renderQuestionAnswer("先输入你的问题，比如：AK没中到底要不要下注？", "empty-note");
     return "";
   }
-  const answer = localDirectAnswer(question);
+  const answer = appendCourseReference(localDirectAnswer(question), question);
   renderQuestionAnswer(answer);
   return answer;
 }
@@ -674,9 +940,24 @@ function bindControls() {
     $("#coachQuestionInput").value = button.dataset.question;
     directAnswerQuestion();
   }));
+  $("#prevLessonButton").addEventListener("click", () => {
+    activeStudyIndex = (activeStudyIndex + courseLessons.length - 1) % courseLessons.length;
+    quizAnswerVisible = false;
+    renderStudyLesson();
+  });
+  $("#nextLessonButton").addEventListener("click", () => {
+    activeStudyIndex = (activeStudyIndex + 1) % courseLessons.length;
+    quizAnswerVisible = false;
+    renderStudyLesson();
+  });
+  $("#quizRevealButton").addEventListener("click", () => {
+    quizAnswerVisible = !quizAnswerVisible;
+    renderStudyLesson();
+  });
   $("#saveApiKeyButton").addEventListener("click", saveConfig);
   $("#jumpAnalyzeButton").addEventListener("click", () => $("#handBuilder").scrollIntoView({ block: "start" }));
   $("#jumpAskButton").addEventListener("click", () => $("#askPanel").scrollIntoView({ block: "start" }));
+  $("#jumpStudyButton").addEventListener("click", () => $("#studyPanel").scrollIntoView({ block: "start" }));
   $("#jumpConfigButton").addEventListener("click", () => $("#accessPanel").scrollIntoView({ block: "start" }));
   $("#copyPhoneUrlButton").addEventListener("click", () => navigator.clipboard.writeText(publicUrl()).catch(() => {}));
   $("#copyButton").addEventListener("click", async () => {
@@ -719,5 +1000,6 @@ function fillExample() {
 }
 
 bindControls();
+renderStudyLesson();
 renderAll();
 refreshConfig();
