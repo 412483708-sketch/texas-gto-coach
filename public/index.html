@@ -17,6 +17,7 @@
       </div>
       <div class="hero-actions">
         <button class="primary" id="jumpAnalyzeButton" type="button">开始分析一手牌</button>
+        <button class="secondary" id="jumpAskButton" type="button">直接问教练</button>
         <button class="secondary" id="jumpConfigButton" type="button">查看手机访问</button>
       </div>
     </header>
@@ -207,6 +208,34 @@
       </section>
 
       <aside class="coach-panel">
+        <section class="panel ask-panel" id="askPanel">
+          <div class="section-title slim">
+            <span>问</span>
+            <div>
+              <h2>直接问教练</h2>
+              <p>不用填完整牌谱，直接问概念、打法或学习方法。</p>
+            </div>
+          </div>
+
+          <textarea id="coachQuestionInput" placeholder="比如：AK没中到底打不打？短码什么时候反推？ICM 下为什么要收紧？"></textarea>
+
+          <div class="quick-questions">
+            <button class="quick-question" data-question="AK没中到底要不要继续下注？" type="button">AK没中</button>
+            <button class="quick-question" data-question="短码翻前全下和反推应该怎么判断？" type="button">短码全下</button>
+            <button class="quick-question" data-question="ICM、泡沫期和风险溢价到底怎么影响打法？" type="button">ICM调整</button>
+            <button class="quick-question" data-question="我应该怎么学习翻前范围表，为什么不能死背？" type="button">学范围表</button>
+          </div>
+
+          <div class="result-buttons ask-buttons">
+            <button class="secondary" id="directAnswerButton" type="button">直接回答</button>
+            <button class="primary" id="smartQuestionButton" type="button">智能补充</button>
+          </div>
+
+          <div class="analysis-result direct-answer" id="coachQuestionAnswer">
+            <div class="empty-note">在这里问一句话也可以，比如“AK miss 打不打”。我会先按课程原则给你简洁回答。</div>
+          </div>
+        </section>
+
         <section class="panel result-panel" id="resultPanel">
           <div class="result-head">
             <div>

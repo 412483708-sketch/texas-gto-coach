@@ -365,6 +365,31 @@ output {
   color: #164d40;
 }
 
+.ask-panel textarea {
+  min-height: 108px;
+}
+
+.quick-questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.quick-question {
+  min-height: 36px;
+  border-radius: 8px;
+  background: var(--amber-soft);
+  color: var(--amber);
+  padding: 7px 10px;
+  font-weight: 850;
+}
+
+.ask-buttons,
+.direct-answer {
+  margin-top: 10px;
+}
+
 .analysis-result {
   display: grid;
   gap: 10px;
@@ -507,7 +532,8 @@ output {
   }
 
   .result-buttons,
-  .hero-actions {
+  .hero-actions,
+  .ask-buttons {
     display: grid;
     grid-template-columns: 1fr;
     width: 100%;
