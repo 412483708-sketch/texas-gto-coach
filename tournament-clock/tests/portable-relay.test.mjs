@@ -1,0 +1,23 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { initial,processRelay } from '../relay-engine.mjs';
+test('persistent relay serializes whole tournament delivery, confirms once, revokes pairing',()=>{
+ let db=initial(),now=10000;const tv='a'.repeat(64);
+ const call=(path,body,auth=tv)=>{db=JSON.parse(JSON.stringify(db));return processRelay(db,path,body,auth,tv,now++);};
+ assert.equal(call('/api/tv/sync',{boot:'one',state:{now,revision:0}}).status,200);
+ assert.equal(call('/api/state',{},'intruder').status,401);
+ const qr=call('/api/tv/pair',{boot:'one'}).body.pair;
+ const phone=call('/api/pair',{key:qr},'').body.token;
+ assert.equal(call('/api/pair',{key:qr},'').status,401);
+ const cmd={id:'b'.repeat(32),revision:0,action:'tournament',value:{name:'test',players:12,plan:[{small:10,big:20,ante:20,minutes:15}]}};
+ assert.equal(call('/api/command',cmd,phone).status,200);
+ assert.equal(call('/api/command',cmd,phone).body.duplicate,true);
+ let sync=call('/api/tv/sync',{boot:'one',state:{now,revision:0}});
+ assert.deepEqual(sync.body.commands[0].value,cmd.value);
+ sync=call('/api/tv/sync',{boot:'one',state:{now,revision:1},acks:[{id:cmd.id,result:'applied'}]});
+ assert.equal(sync.body.commands.length,0);
+ assert.equal(call('/api/state',{},phone).body.results[cmd.id],'applied');
+ assert.equal(call('/api/command',cmd,phone).body.duplicate,true);
+ call('/api/tv/pair',{boot:'one'});
+ assert.equal(call('/api/state',{},phone).status,401);
+});
